@@ -69,3 +69,37 @@ sns.countplot(df2, x="servings", hue="high_traffic")
 In sns.countplot, hue is a parameter that allows you to specify a categorical variable to group the data by and display the count of each category as separate bars.
 '''
 
+fig, axes = plt.subplots(1, 3, figsize=(15,5))
+sns.countplot(x=df2['servings'], color='gray', ax=axes[0]).set(title='Count of servings')
+sns.countplot(x=df2['category'], color='lightgreen', ax=axes[1]).set(title='Count of category')
+sns.countplot(x=df2['high_traffic'], color='lightblue', ax=axes[2]).set(title='Count of high_traffic')
+for ax in fig.axes:
+    plt.sca(ax)
+    plt.xticks(rotation=90);
+    
+'''
+plt.sca(ax) stands for "set current axis" and it is a function in the matplotlib library.
+In the given code, fig, axes = plt.subplots(1, 3, figsize=(15,5)) creates a figure object and 3 subplot axes. The first argument to subplots is the number of rows and 
+the second argument is the number of columns, so 1, 3 means there is one row and three columns of subplots.
+'''
+
+def diff_for_numerical(df2, name):
+    df2_high_agg = pd.pivot_table(df2[df2['high_traffic'] == 'High'], index=["category"], columns=["servings"], values=name, aggfunc=np.mean) # 
+
+    df2_low_agg = pd.pivot_table(df2[df2['high_traffic'] == 'Low'], index=["category"], columns=["servings"], values=name, aggfunc=np.mean)
+
+    df2_diff = df2_high_agg.subtract(df2_low_agg)
+    
+    f, ax = plt.subplots(figsize=(5, 6))
+    sns.heatmap(df2_diff, annot=True, fmt=".1f", linewidths=.5, ax=ax, cmap="coolwarm_r", center=0) # "coolwarm" ["pink","lightgreen"] # cmaplist
+    plt.title('Difference between means... for {0}'.format(name))
+    plt.show()
+    
+    return df2_diff
+
+for name in nutritional_1:
+    diff_for_numerical(df2, name)
+    
+'''
+
+'''

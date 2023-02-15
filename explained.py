@@ -143,4 +143,45 @@ num_pivot_df.plot(kind='bar')
 pivot_table is a function in pandas that allows you to create a new table by aggregating and reshaping an existing table of data. 
 The function is useful for summarizing and analyzing data by grouping it in different ways.
 '''
+
+grid = {
+    "C": np.logspace(-3, 3, 7), # from -0.001 to 1000 by 7 steps
+    "penalty": ["l1", "l2", "elasticnet", None],
+    "multi_class": ["auto", "ovr", "multinomial"]
+}
+logreg = LogisticRegression()
+logreg_cv = GridSearchCV(logreg, grid, cv=10)
+logreg_cv.fit(X_train, y_train)
+
+print("Tuned hyperparameters:", logreg_cv.best_params_)
+
 '''
+* GridSearchCV is used to find the best combination of hyperparameters for a given model by trying all possible combinations. 
+It is a brute-force approach that trains the model on all possible hyperparameter combinations and selects the combination that gives the best results.
+
+
+'''
+grid = {
+    "C": np.logspace(-3, 3, 7), # from -0.001 to 1000 by 7 steps
+    "penalty": ["l1", "l2", "elasticnet", None],
+    "multi_class": ["auto", "ovr", "multinomial"]
+}
+
+'''
+* The penalty parameter specifies the type of regularization. Regularization is a technique used in machine learning to prevent overfitting of models. 
+It involves adding a penalty term to the loss function of a model to discourage complex models that may fit the training data too closely and not generalize well to
+new, unseen data. Regularization techniques, such as L1 regularization (lasso) and L2 regularization (ridge), can help to reduce the complexity of a model by shrinking
+the values of the model parameters towards zero, thus avoiding overfitting.
+* C is the inverse of the regularization strength, which means that smaller values of C lead to stronger regularization, and larger values of C lead to weaker 
+regularization. It controls the regularization strength, with smaller values of C indicating stronger regularization.
+* multi_class is a hyperparameter that specifies the strategy to use for multi-class classification. The options for this hyperparameter are:
+auto: The strategy is determined based on the nature of the problem.
+ovr: One-vs-Rest strategy creates one binary model for each class and then makes a prediction based on which model has the highest probability.
+multinomial: The model builds a single classifier that can predict the probabilities of each of the possible classes.
+'''
+
+
+
+
+
+

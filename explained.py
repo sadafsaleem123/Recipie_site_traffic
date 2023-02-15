@@ -101,5 +101,46 @@ for name in nutritional_1:
     diff_for_numerical(df2, name)
     
 '''
+The diff_for_numerical function is defined to create a heatmap that shows the difference between the average nutritional components of recipes with high traffic and 
+those with low traffic. It takes two arguments: the dataset df2 and the name of the nutritional component.
 
+First, the function uses the pd.pivot_table function to create two new dataframes, df2_high_agg and df2_low_agg, which group the recipes based on their categories and 
+servings and calculate the average of the specified nutritional component for each group. One of the dataframes only contains recipes with high traffic and the other 
+only contains recipes with low traffic.
+
+Next, the function creates a new dataframe, df2_diff, by subtracting the nutritional component averages for the low traffic recipes from the averages for the high 
+traffic recipes.
+
+Then, the function creates a heatmap using sns.heatmap, which displays the difference between the average nutritional components of the high and low traffic recipes. 
+The heatmap shows the nutritional component values for each category and serving size, with blue colors indicating a lower average value for high traffic recipes, and red colors indicating a higher average value for high traffic recipes.
+
+Finally, the function returns the df2_diff dataframe so that it can be used later if necessary. The function is called in a loop to create a heatmap for each of the 
+nutritional components in the nutritional_1 list.
+
+* sns.heatmap(df2_diff, annot=True, fmt=".1f", linewidths=.5, ax=ax, cmap="coolwarm_r", center=0)
+This line of code generates a heatmap plot using Seaborn library. 
+* fmt=".1f": This parameter specifies the format string for the annotations. The .1f format means to display each value with one decimal place. In the Seaborn heatmap, 
+the fmt parameter is used to format the annotations that appear on the heatmap. It is short for "format", and the value of fmt is a string that determines how the 
+annotations will be displayed. The string should contain a format specifier that defines the layout of the annotations. In general, fmt is used to control the 
+precision and format of the values that are displayed on the heatmap.
+* linewidths=.5: This parameter sets the width of the lines that separate each cell in the heatmap.
+* ax=ax: This parameter specifies the matplotlib Axes object where the heatmap should be drawn.
+* cmap="coolwarm_r": This parameter sets the color map used for the heatmap. In this case, it uses the "coolwarm_r" color map, which ranges from blue (negative values) to red (positive values), with white being the center point (i.e., zero difference between high and low traffic mean values).
+center=0: This parameter sets the center point of the color map. In this case, it is set to 0 to indicate no difference between high and low traffic mean values.
+* An annotation refers to adding additional information, such as text or labels, to a plot or chart to help convey more meaning or context to the viewer. 
+'''
+sns.heatmap(df2_diff, annot=True, fmt=".1f", linewidths=.5, ax=ax, cmap="coolwarm_r", center=0)
+'''
+If you don't specify the ax parameter when creating a heatmap with sns.heatmap, the function will create its own figure and axis, and plot the heatmap on that axis. 
+This is useful if you want to quickly visualize the heatmap without having to create the figure and axis objects yourself.
+'''
+
+# df = data_pv.pivot(index='category', columns='gender', values='no_show_prop')
+num_pivot_df = pd.pivot_table(df2, index=["high_traffic"], values=nutritional_1, aggfunc=np.mean) # values=name, 
+num_pivot_df.plot(kind='bar')
+
+'''
+pivot_table is a function in pandas that allows you to create a new table by aggregating and reshaping an existing table of data. 
+The function is useful for summarizing and analyzing data by grouping it in different ways.
+'''
 '''

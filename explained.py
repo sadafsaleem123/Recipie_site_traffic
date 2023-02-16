@@ -182,6 +182,23 @@ multinomial: The model builds a single classifier that can predict the probabili
 
 
 
+penalty{‘l1’, ‘l2’, ‘elasticnet’, None}, default=’l2’
+'''
+Specify the norm of the penalty:
+None: no penalty is added;
+'l2': add a L2 penalty term and it is the default choice;
+'l1': add a L1 penalty term;
+'elasticnet': both L1 and L2 penalty terms are added.
+'''
 
+C : float, default=1.0
+'''
+Inverse of regularization strength; must be a positive float. Like in support vector machines, smaller values specify stronger regularization.
+'''
 
-
+multi_class{‘auto’, ‘ovr’, ‘multinomial’}, default=’auto’
+'''
+If the option chosen is ‘ovr’, then a binary problem is fit for each label. 
+For ‘multinomial’ the loss minimised is the multinomial loss fit across the entire probability distribution, even when the data is binary. ‘multinomial’ is unavailable when solver=’liblinear’. 
+‘auto’ selects ‘ovr’ if the data is binary, or if solver=’liblinear’, and otherwise selects ‘multinomial’.
+'''

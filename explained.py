@@ -229,3 +229,20 @@ If the option chosen is ‘ovr’, then a binary problem is fit for each label.
 For ‘multinomial’ the loss minimised is the multinomial loss fit across the entire probability distribution, even when the data is binary. ‘multinomial’ is unavailable when solver=’liblinear’. 
 ‘auto’ selects ‘ovr’ if the data is binary, or if solver=’liblinear’, and otherwise selects ‘multinomial’.
 '''
+
+resultdict = {}
+for i in range(len(list(X))):
+    resultdict[list(X)[i]] = logreg2.coef_[0][i]
+    
+plt.bar(resultdict.keys(),resultdict.values())
+plt.xticks(rotation='vertical')
+plt.title('Feature Importance for Logistic Regression model');
+
+'''
+In the given code, a dictionary resultdict is initialized. Then, a for loop iterates over all the features (columns) of the feature matrix X to retrieve the 
+corresponding coefficient for that feature from the logreg2 logistic regression model using the coef_ attribute. The coefficient is stored as the value of the 
+key-value pair in resultdict where the key is the name of the feature.
+
+After retrieving all the coefficients, the dictionary is used to create a bar plot using plt.bar(), where the x-axis shows the names of the features and the y-axis 
+shows the corresponding coefficients
+'''

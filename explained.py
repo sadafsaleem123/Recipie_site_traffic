@@ -180,7 +180,34 @@ ovr: One-vs-Rest strategy creates one binary model for each class and then makes
 multinomial: The model builds a single classifier that can predict the probabilities of each of the possible classes.
 '''
 
+'''
+Question: Why we are using logistic regression and Linear Support Vector Classification model in this project?
 
+The choice of models for a particular project depends on the nature of the problem and the data at hand. In the recipe traffic project, we are dealing with a classification problem where we need to predict the cuisine of a recipe based on its ingredients. Both logistic regression and linear support vector classification are popular and effective algorithms for classification tasks.
+
+Logistic regression is a widely used algorithm for binary classification tasks, where the target variable has only two possible values. It models the probability of the occurrence of a certain event given a set of input features.
+
+Linear Support Vector Classification, on the other hand, is a powerful algorithm for multi-class classification tasks, where the target variable can have more than two possible values. It works by finding the optimal hyperplane that maximally separates the data points into different classes.
+
+In the recipe traffic project, we have multiple cuisine categories, making Linear Support Vector Classification a suitable choice. However, we also try logistic regression to see if it provides good performance, and compare its performance with that of Linear Support Vector Classification using cross-validation and hyperparameter tuning
+'''
+
+
+'''
+Question: Why to use GridSearchCV?
+
+The goal of GridSearchCV is to exhaustively search over all possible combinations of these hyperparameters in the grid and select the best combination that results 
+
+in the highest cross-validation accuracy. Once the best hyperparameters are determined, the LogisticRegression model is trained on the entire training dataset using 
+
+the selected hyperparameters to make predictions on new, unseen data.
+'''
+
+'''
+Question: What is Regularization?
+
+Regularization is a technique used in machine learning to prevent overfitting and improve the generalization of models.
+'''
 
 penalty{‘l1’, ‘l2’, ‘elasticnet’, None}, default=’l2’
 '''
